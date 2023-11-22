@@ -1,9 +1,9 @@
-#include <algorithm>
-#include <iostream>
 #include <string>
-#include <sstream>
-#include <string_view>
 #include <vector>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <string_view>
 
 using namespace std;
 
@@ -13,8 +13,13 @@ private:
 public:
     explicit Domain(string str) : domain_(std::move(str)) {}
 
-    bool operator==(const Domain &rhs) const {
-        return domain_ == rhs.domain_;
+    bool operator==(const Domain& rhs) const {
+        return lexicographical_compare(
+                domain_.begin(),
+                domain_.end(),
+                rhs.domain_.begin(),
+                rhs.domain_.end()
+        );
     }
 
     bool IsSubDomain(const Domain &rhs) const {
