@@ -25,7 +25,7 @@ struct Person {
     int age_;
 };
 
-DBHandler ConnectDB(DBConnectionParams connection_params) {
+DBHandler ConnectDB(const DBConnectionParams& connection_params) {
     DBConnector connector(connection_params.allow_exceptions_, connection_params.log_level_);
 
     if (connection_params.name_.starts_with("tmp."s)) { // cpp 20
@@ -44,7 +44,7 @@ DBQuery CreateQuery(const SearchFilterParams &params, const DBHandler &db) {
     return DBQuery(query_str.str());
 }
 
-vector<Person> LoadPersons(DBConnectionParams connection_params, SearchFilterParams search_filter_params) {
+vector<Person> LoadPersons(const DBConnectionParams& connection_params, const SearchFilterParams& search_filter_params) {
     DBHandler db = ConnectDB(connection_params);
 
     if (!connection_params.allow_exceptions_ && !db.IsOK()) {
@@ -103,7 +103,7 @@ struct Country {
     string iso_code_;
     string phone_code_;
     string time_zone_;
-    vector<Language> &languages_;
+    vector<Language> languages_;
 };
 
 void ParseCitySubjson(vector<City> &cities, const Json &json, const Country &country) {
