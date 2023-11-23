@@ -73,7 +73,8 @@ int CalculateDayMaxCountInMonth(const DateTime &dt) {
     return month_lengths[dt.month - 1];
 }
 
-void ValidityChecker(const string& dt_name, const DateTime &dt, int dt_min, int dt_max) {
+template<typename DT>
+void ValidityChecker(const string& dt_name, DT dt, int dt_min, int dt_max) {
     if (dt < dt_min) {
         throw domain_error(dt_name + " is too small"s);
     }
